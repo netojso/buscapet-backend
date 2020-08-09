@@ -3,8 +3,8 @@
   "host": "localhost",
   "port": 5432,
   "username": "postgres",
-  "password": "pet",
-  "database": "petApp",
+  "password": "projetos",
+  "database": "petapp",
   "entities": [
     "./src/models/*.ts"
   ],
