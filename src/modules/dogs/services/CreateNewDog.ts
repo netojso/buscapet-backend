@@ -1,39 +1,58 @@
-/* eslint-disable class-methods-use-this */
-import { getRepository } from 'typeorm';
-import Dog from '../models/Dog';
+import { injectable, inject } from 'tsyringe';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import IDogsRepository from '../repositories/IDogsRepository';
+import IPhotosRepository from '../repositories/IPhotosRepository';
+import Dog from '../infra/typeorm/entities/Dog';
 
-interface Request {
-  breed: string;
-  photos: never[];
-  location: { longitude: number; latitude: number };
-  date: Date;
+interface IPhotos {
+  user_id: string;
+  url: string;
 }
 
+interface IRequest {
+  breed: string;
+  description: string;
+  user_id: string;
+  longitude: number;
+  latitude: number;
+  photos: IPhotos[];
+}
+
+@injectable()
 class CreateNewDog {
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
+
+    @inject('DogsRepository')
+    private dogsRepository: IDogsRepository,
+
+    @inject('PhotosRepository')
+    private photosRepository: IPhotosRepository,
+  ) {}
+
   public async execute({
     breed,
+    description,
+    user_id,
+    latitude,
+    longitude,
     photos,
-    location,
-    date,
-  }: Request): Promise<Dog> {
-    const DogRepository = getRepository(Dog);
+  }: IRequest): Promise<Dog> {
+    const checkUserExists = await this.usersRepository.findById(user_id);
 
-    const checkDogExists = await DogRepository.findOne({
-      where: { breed, location },
-    });
-
-    if (checkDogExists) {
-      throw new Error('Esse pet já existe');
+    if (!checkUserExists) {
+      throw new Error('Esse usuário não existe');
     }
 
-    const dog = DogRepository.create({
+    const dog = await this.dogsRepository.create({
       breed,
+      description,
+      latitude,
+      longitude,
+      user_id,
       photos,
-      location,
-      date,
     });
-
-    await DogRepository.save(dog);
 
     return dog;
   }

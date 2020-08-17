@@ -8,7 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import User from '@modules/users/infra/typeorm/entities/User';
+import User from '../../../../users/infra/typeorm/entities/User';
 import Dog from './Dog';
 
 @Entity('photos')
@@ -29,6 +29,7 @@ class Photo {
   @JoinColumn({ name: 'dog_id' })
   dog: Dog;
 
+  @ManyToOne(() => User, user => user.photos)
   @JoinColumn({ name: 'user_id' })
   user: User;
 

@@ -9,7 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import User from '@modules/users/infra/typeorm/entities/User';
+import User from '../../../../users/infra/typeorm/entities/User';
 import Photo from './Photo';
 
 @Entity('dogs')
@@ -23,20 +23,20 @@ class Dog {
   @Column()
   breed: string;
 
-  @Column()
+  @Column('varchar')
+  description: string;
+
+  @Column('int')
   longitude: number;
 
-  @Column()
+  @Column('int')
   latitude: number;
 
   @ManyToOne(() => User, user => user.dogs)
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @OneToMany(() => Photo, photo => photo.dog, {
-    eager: true,
-    cascade: true,
-  })
+  @OneToMany(() => Photo, photo => photo.dog, { eager: true, cascade: true })
   photos: Photo[];
 
   @CreateDateColumn()

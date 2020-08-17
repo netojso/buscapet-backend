@@ -1,7 +1,6 @@
-/* eslint-disable import/prefer-default-export */
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateDog1594061049996 implements MigrationInterface {
+export default class CreateDogs1597357314803 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -20,23 +19,13 @@ export class CreateDog1594061049996 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: 'photos',
-            type: 'varchar[]',
-            isNullable: false,
-          },
-          {
             name: 'longitude',
-            type: 'varchar',
+            type: 'int',
             isNullable: false,
           },
           {
             name: 'latitude',
-            type: 'varchar',
-            isNullable: false,
-          },
-          {
-            name: 'date',
-            type: 'timestamp with time zone',
+            type: 'int',
             isNullable: false,
           },
           {

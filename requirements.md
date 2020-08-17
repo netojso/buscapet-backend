@@ -1,24 +1,21 @@
 # Criação de usuário
 **RF**
 
-- O usuário deve conseguir criar uma conta usando name, email e senha;
-- O usuário deve inserir seu whatsapp;
+[x] O usuário deve conseguir criar uma conta usando nome e whatsapp;
 
 **RNF**
 
-- Utilizar JWT para autenticar usuário;
-- Utilizar Bcrypt para criptografar senha.
+[] Utilizar JWT para autenticar usuário;
 
 **RN**
 
-- O usuário não pode criar uma conta com email já existente;
-- O usuário deve usar senha maior que 6 dígitos;
+[x] O usuário não pode criar uma conta com WhatsApp já existente;
 
 # Criação de dog
 
 **RF**
 
-- O usuário deve inserir raça, localização, descrição de onde encontrou;
+[x] O usuário deve inserir raça, localização, descrição de onde encontrou;
 - O usuário deve fazer upload de três fotos do dog;
 
 **RNF**

@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 
 import Dog from '@modules/dogs/infra/typeorm/entities/Dog';
+import Photo from '@modules/dogs/infra/typeorm/entities/Photo';
 
 @Entity('users')
 class User {
@@ -17,11 +18,14 @@ class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column('int')
   whatsapp: number;
 
-  @OneToMany(() => Dog, dog => dog.user)
+  @OneToMany(() => Dog, dogs => dogs.user, { eager: true })
   dogs: Dog[];
+
+  @OneToMany(() => Photo, photos => photos.user, { eager: true })
+  photos: Photo[];
 
   @CreateDateColumn()
   created_at: Date;
