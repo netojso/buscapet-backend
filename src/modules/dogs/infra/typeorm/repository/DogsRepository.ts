@@ -49,10 +49,15 @@ class DogsRepository implements IDogsRepository {
       longitude,
       photos,
     });
-
     await this.ormRepository.save(dog);
 
     return dog;
+  }
+
+  public async save(dog: Dog): Promise<Dog> {
+    const newDog = await this.ormRepository.save(dog);
+
+    return newDog;
   }
 }
 

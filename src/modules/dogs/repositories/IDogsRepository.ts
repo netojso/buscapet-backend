@@ -6,4 +6,5 @@ export default interface IDogsRepository {
   findByUserId(user_id: string): Promise<Dog[] | undefined>;
   findByBreed(breed: string): Promise<Dog[] | undefined>;
   create(data: ICreateDogDTO): Promise<Dog>;
+  save(dog: Dog): Promise<Dog>;
 }

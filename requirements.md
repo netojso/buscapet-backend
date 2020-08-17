@@ -16,12 +16,12 @@
 **RF**
 
 [x] O usuário deve inserir raça, localização, descrição de onde encontrou;
-- O usuário deve fazer upload de três fotos do dog;
+[x] O usuário deve fazer upload de três fotos do dog;
 
 **RNF**
 
 - Utilizar recursos de Geolocalização do Expo para abstrair a latitude e longitude do usuário;
-- Utilizar o Multer para upload de fotos no Disco;
+[x] Utilizar o Multer para upload de fotos no Disco;
 - Utilizar alguma biblioteca de resize de imagens para comprimir imagens;
 
 **RN**

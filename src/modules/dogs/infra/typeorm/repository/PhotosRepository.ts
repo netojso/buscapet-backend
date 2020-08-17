@@ -21,7 +21,7 @@ class PhotosRepository implements IPhotosRepository {
 
   public async findByDogId(dog_id: string): Promise<Photo[] | undefined> {
     const photos = await this.ormRepository.find({
-      where: { dog_id },
+      where: dog_id,
     });
 
     return photos;
@@ -41,6 +41,12 @@ class PhotosRepository implements IPhotosRepository {
     await this.ormRepository.save(photo);
 
     return photo;
+  }
+
+  public async updatePhotos(photo: Photo): Promise<Photo> {
+    const newPhotos = await this.ormRepository.save(photo);
+
+    return newPhotos;
   }
 }
 
