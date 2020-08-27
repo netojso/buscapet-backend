@@ -8,8 +8,6 @@ import Dog from '../infra/typeorm/entities/Dog';
 import IDogsRepository from '../repositories/IDogsRepository';
 
 interface IPhotos {
-  user_id: string;
-  dog_id: string;
   url: string;
 }
 
@@ -43,16 +41,22 @@ class UpdateDog {
     breed,
     description,
     photos,
-  }: IRequest): Promise<Dog[] | null> {
+  }: IRequest): Promise<Dog> {
     const user = await this.usersRepository.findById(user_id);
     const dogs = await this.dogsRepository.findByUserId(user_id);
+
     if (!user) {
       throw new Error('Usuário não encontrado');
     }
 
     if (dogs) {
       const findDog = dogs.find(dog => dog.id === dog_id);
+
       if (findDog) {
+        findDog.photos.forEach((photoItem, index) => {
+          photoItem.url = photos[index].url;
+        });
+
         Object.assign(findDog, {
           breed,
           description,
@@ -60,24 +64,7 @@ class UpdateDog {
 
         await this.dogsRepository.save(findDog);
 
-        findDog.photos.map(photoItem => {
-          photos.forEach(photo => {
-            console.log('----');
-            console.log(photoItem.url);
-            console.log('----');
-            console.log(photo.url);
-            console.log('----');
-            photoItem.url = photo.url;
-          });
-        });
-
-        // const promise = findDog.photos.map(async newPhoto => {
-        //   await this.photosRepository.updatePhotos(newPhoto);
-        // });
-
-        Promise.all(promise);
-
-        return dogs;
+        return findDog;
       }
     }
 

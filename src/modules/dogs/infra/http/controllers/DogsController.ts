@@ -44,13 +44,11 @@ export default class DogsController {
 
     const photosParsed = photos.map((photo: { filename: any }) => {
       return {
-        user_id,
-        dog_id,
         url: photo.filename,
       };
     });
 
-    const dogs = await updateDog.execute({
+    const dog = await updateDog.execute({
       user_id,
       breed,
       description,
@@ -58,6 +56,6 @@ export default class DogsController {
       photos: photosParsed,
     });
 
-    return response.json(dogs);
+    return response.json(dog);
   }
 }
